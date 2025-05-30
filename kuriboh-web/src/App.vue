@@ -2,38 +2,58 @@
 import top from './components/top.vue';
 import rightMenu from './components/rightMenu.vue';
 import { AccountBookFilled } from '@ant-design/icons-vue'
+import { computed } from 'vue'
+import { useStore } from 'vuex';
+import Order from './components/order.vue';
+
+const store = useStore();
+const tagName = computed(() => store.state.tagName);
+const tagDetail = computed(() => store.state.tagDetail)
+
+
 </script>
 
 <template>
-  <top></top>
-  <div
-    style="display: flex; flex-direction: row; justify-content: center; align-items: start; width: 100%; height: 100%;">
+
+  <div style="width: 100%; display: flex; flex-direction: column ; justify-content: center; align-items: center;">
+    <top></top>
+
     <div class="tag" id="tagInfo">
       <div style="margin: 15px;">
-        <AccountBookFilled  style="color: white; font-size: 23px;  margin-right: 20px;"/>
-        <text class="titleText">下单</text>
+        <AccountBookFilled style="color: white; font-size: 23px;  margin-right: 20px;" />
+        <text class="titleText">{{ tagName }}</text>
       </div>
 
-      <text class="titleDetailText">对于 Flarum 在设计上、功能上有什么好的建议呢？如果您需要技术支援，请在 “求助” 节点寻求帮助。</text>
-    </div>
+      <text class="titleDetailText">{{ tagDetail }}</text>
 
-    <!-- 右边导航栏目 -->
-     <rightMenu class="rightMenu"/>
+    </div>
   </div>
+
+  <div class="rightMenu">
+    <div style="width:80%; margin-left: 200px;">
+      <Order ></Order>
+    </div>
+    <!-- 右边导航栏目 -->
+    <rightMenu style="margin-right: 15%;" />
+
+  </div>
+
+
+
 </template>
 
 <style scoped>
 .tag {
-  width: 60%;
+  width: 50%;
   height: 12%;
   border-radius: 8px;
   background-color: coral;
-  margin-top: 90px;
+  margin-top: 7%;
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  transition: background-color 0.5s ease, transform 0.5s ease; 
+  transition: background-color 0.5s ease, transform 0.5s ease;
 }
 
 
@@ -43,6 +63,7 @@ import { AccountBookFilled } from '@ant-design/icons-vue'
   font-weight: 550;
   font-size: 20px;
   margin-top: 15px;
+
 }
 
 .titleDetailText {
@@ -53,8 +74,14 @@ import { AccountBookFilled } from '@ant-design/icons-vue'
   margin-top: 0px;
 }
 
-.rightMenu{
-  margin-top:15%;
+.rightMenu {
+  margin-top: 5%;
   margin-left: 5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: start;
+  width: 100%;
+  height: 100%;
 }
 </style>
