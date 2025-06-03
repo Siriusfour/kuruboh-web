@@ -16,7 +16,7 @@ const tagDetail = computed(() => store.state.tagDetail)
 <template>
 
   <div style="width: 100%; display: flex; flex-direction: column ; justify-content: center; align-items: center;">
-    <top></top>
+    <top style="z-index: 1000;"></top>
 
     <div class="tag" id="tagInfo">
       <div style="margin: 15px;">
@@ -30,11 +30,11 @@ const tagDetail = computed(() => store.state.tagDetail)
   </div>
 
   <div class="rightMenu">
-    <div style="width:80%; margin-left: 200px;">
-      <Order ></Order>
+    <div style="width:80%; margin-left: 17%; height: 100%;">
+      <Order></Order>
     </div>
     <!-- 右边导航栏目 -->
-    <rightMenu style="margin-right: 15%;" />
+    <rightMenu style="margin-right: 26%;" />
 
   </div>
 
@@ -44,11 +44,11 @@ const tagDetail = computed(() => store.state.tagDetail)
 
 <style scoped>
 .tag {
-  width: 50%;
-  height: 12%;
+  width: 57%;
+  height: 110px;
   border-radius: 8px;
   background-color: coral;
-  margin-top: 7%;
+  margin-top: 5%;
   display: flex;
   flex-direction: column;
   justify-content: start;
