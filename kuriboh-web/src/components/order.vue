@@ -60,25 +60,25 @@ const orgType = reactive([
 
 const productTypeList = ref([
     {
-        key: '0',
+        key: 0,
         icon: () => h(MailOutlined),
         label: '试剂',
         title: 'Navigation One',
     },
     {
-        key: '1',
+        key: 1,
         icon: () => h(AppstoreOutlined),
         label: '配套',
         title: 'Navigation Two',
     },
     {
-        key: '2',
+        key: 2,
         icon: () => h(SettingOutlined),
         label: '设备',
         title: 'Navigation Three - Submenu',
     },
     {
-        key: '3',
+        key: 3,
         icon: () => h(SettingOutlined),
         label: '其他',
         title: 'Navigation Three - Submenu',
@@ -94,7 +94,7 @@ watch(
 
 onMounted(() => {
     //初始化试剂，配套，耗材三个数组
-    res.forEach((item,) => {
+    res.forEach((item) => {
         if (item.product_type == 0) {
             reagentList.value.push(item)
         }
@@ -113,7 +113,7 @@ onMounted(() => {
 
     });
     console.log(reagentList.value);
-    console.log(showProductList.value);
+    console.log(deviceList.value);
     
 
 })
@@ -123,28 +123,29 @@ const toggleCollapsed = () => {
 };
 
 const onSearch = searchValue => {
-    console.log('use value', searchValue);
-    console.log('or use this.value', value.value);
+
 };
 
 
 
 const selectedProductType = ({ item, key }) => {
 
+    console.log(key);
+
+
     if (key === 0) {
         showProductList.value = reagentList.value
     }
     if (key === 1) {
-        showProductList = deviceList
+        showProductList.value  = deviceList.value 
     }
     if (key === 2) {
-        showProductList = materialList
+        showProductList.value  = materialList.value 
     }
     if (key === 3) {
-        showProductList = otherList
+        showProductList.value  = otherList.value 
     }
-    console.log(reagentList.value);
-    console.log(showProductList.value);
+
 
 }
 
@@ -159,7 +160,7 @@ const selectedProductType = ({ item, key }) => {
         </a-button>
         <div>
             <a-menu v-model:selectedKeys="current" mode="horizontal" :items="productTypeList"
-                @click="selectedProductType" />
+            @click="selectedProductType" />
         </div>
         <a-input-search style="" v-model:value="value" placeholder="请输入产品/公司" enter-button="Search" size="large"
             @search="onSearch" />
