@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { SearchOutlined, CaretDownOutlined, BellOutlined, SoundFilled } from '@ant-design/icons-vue'
+import { SearchOutlined, CaretDownOutlined, BellOutlined, SoundFilled , SettingOutlined  } from '@ant-design/icons-vue'
 const onClick = ({ key }) => {
   console.log(`Click on item ${key}`);
 };
@@ -22,6 +22,7 @@ const nickName = ref("susi")
 
     <div style="  margin-left: 300px;">
       <SearchOutlined class="searchIcon" />
+
       <input class="searchInput" placeholder="输入搜索内容" />
     </div>
 
@@ -30,15 +31,15 @@ const nickName = ref("susi")
 
       <a-dropdown>
         <a @click.prevent style="margin-left: 30px;" class="titleText">
-          中文
+          中文(English)
           <CaretDownOutlined style="color: white; margin-right: 20px;" />
           <DownOutlined />
         </a>
         <template #overlay>
           <a-menu @click="onClick">
-            <a-menu-item key="1">中文</a-menu-item>
-            <a-menu-item key="2">English</a-menu-item>
-            <a-menu-item key="3">3rd menu item</a-menu-item>
+            <a-menu-item key="1">中文(English)</a-menu-item>
+            <a-menu-item key="2">English(中文)</a-menu-item>
+            <a-menu-item key="3"></a-menu-item>
           </a-menu>
         </template>
       </a-dropdown>
@@ -60,8 +61,24 @@ const nickName = ref("susi")
         </a>
         <template #overlay>
           <a-menu @click="onClick">
-            <a-menu-item key="1">个人主页</a-menu-item>
-            <a-menu-item key="2">我的订单</a-menu-item>
+
+            <a-card hoverable style="width: 300px">
+              <template #cover>
+                <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />
+              </template>
+              <template #actions>
+                <SettingOutlined key="setting"  />
+                <BellOutlined key="edit" />
+                <BellOutlined key="ellipsis" />
+              </template>
+              <a-card-meta title="Suis" description="博康海洋生物有限公司">
+                <template #avatar>
+                  <a-avatar :src="Avatar" />
+                </template>
+              </a-card-meta>
+            </a-card>
+
+
 
           </a-menu>
         </template>

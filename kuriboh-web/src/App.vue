@@ -4,7 +4,7 @@ import rightMenu from './components/rightMenu.vue';
 import { AccountBookFilled } from '@ant-design/icons-vue'
 import { computed } from 'vue'
 import { useStore } from 'vuex';
-import Order from './components/order.vue';
+import purchase from './components/purchase/purchase.vue';
 
 const store = useStore();
 const tagName = computed(() => store.state.tagName);
@@ -21,7 +21,7 @@ const tagDetail = computed(() => store.state.tagDetail)
     <div class="tag" id="tagInfo">
       <div style="margin: 15px;">
         <AccountBookFilled style="color: white; font-size: 23px;  margin-right: 20px;" />
-        <text class="titleText">{{ tagName }}</text>
+        <text class="titleText animate__fadeInDown">{{ tagName }}</text>
       </div>
 
       <text class="titleDetailText">{{ tagDetail }}</text>
@@ -31,13 +31,12 @@ const tagDetail = computed(() => store.state.tagDetail)
 
   <div class="rightMenu">
     <div style="width:80%; margin-left: 17%; height: 100%;">
-      <Order></Order>
+      <purchase></purchase>
     </div>
     <!-- 右边导航栏目 -->
     <rightMenu style="margin-right: 26%;" />
 
   </div>
-
 
 
 </template>

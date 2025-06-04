@@ -5,6 +5,9 @@ import App from './App.vue'
 import 'ant-design-vue/dist/reset.css';
 import Antd from 'ant-design-vue';
 import { createStore } from 'vuex'
+import './assets/iconfont/iconfont.css'
+import 'animate.css';
+import { state } from './components/purchase/purchase';
 
 
 const store = createStore({
@@ -13,7 +16,8 @@ const store = createStore({
       count: 0,
       tagName:"下单",
       tagColor:"red",
-      tagDetail:"此处用于下单"
+      tagDetail:"此处用于下单",
+      shoppingCat:[]
     }
   },
   mutations: {
@@ -21,6 +25,12 @@ const store = createStore({
       state.tagName = tagInfo.tagName
       state.tagColor = tagInfo.tagColor
       state.tagDetail = tagInfo.tagDetail
+    },
+
+    addshoppingCat(state,item){
+      console.log(state.shoppingCat);
+      
+      state.shoppingCat.unshift(item)
     }
   }
 })
