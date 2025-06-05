@@ -57,3 +57,10 @@
     justify-self: start;
     align-items: start;
   }
+
+  .titleText {
+    color: #314188;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+}

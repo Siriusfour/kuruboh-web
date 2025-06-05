@@ -1,16 +1,51 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>博康海洋生物下单系统</title>
-    <script type="module" src="./src/main.js"></script>
-
-  </head>
-  <body>
-
-    <div id="app" style="width: 100%; height: 100%; margin: 0 0 0 0; padding: 0 0 0 0;     max-width :none;"></div>
-
-
-
-  </body>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="index.js"></script>
+</head>
+<body>
+<div id="page" class="site">
+    <div class="container">
+        <div class="login">
+            <div class="hero">
+                <h1>你好 世界<br>Hello World</h1>
+                <p>如果你没有账号<br>可以<a href="#">点击这里</a>进行注册.</p>
+            </div>
+            <div class="main">
+                <form action="">
+                    <p>
+                        <input type="email" placeholder="账号/account"  id="passwordInput">
+                    </p>
+                    <p class="password">
+                        <input type="password" placeholder="密码/password" id="togglePassword">
+                        <i class="ri-eye-off-line"></i>
+                   
+                    </p>
+                    <p>
+                        <input type="button" class="submit" value="登录" onclick=login()>
+                    </p>
+                </form>
+                <div class="options">
+                    <div class="separator">
+                        <p>使用其他方式登录</p>
+                    </div>
+                    <ul>
+                        <li><a href="#"><i class="ri-steam-fill ri-2x"></i></a></li>
+                        <li><a href="#"><i class="ri-playstation-fill ri-2x"></i></a></li>
+                        <li><a href="#"><i class="ri-xbox-fill ri-2x"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
 </html>
+
+kuriboh-web\

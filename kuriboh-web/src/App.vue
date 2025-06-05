@@ -4,7 +4,7 @@ import rightMenu from './components/rightMenu.vue';
 import { AccountBookFilled } from '@ant-design/icons-vue'
 import { computed } from 'vue'
 import { useStore } from 'vuex';
-import purchase from './components/purchase/purchase.vue';
+
 
 const store = useStore();
 const tagName = computed(() => store.state.tagName);
@@ -29,9 +29,9 @@ const tagDetail = computed(() => store.state.tagDetail)
     </div>
   </div>
 
-  <div class="rightMenu">
-    <div style="width:80%; margin-left: 17%; height: 100%;">
-      <purchase></purchase>
+  <div class="mainView">
+    <div class="left">
+      <RouterView />
     </div>
     <!-- 右边导航栏目 -->
     <rightMenu style="margin-right: 26%;" />
@@ -73,7 +73,7 @@ const tagDetail = computed(() => store.state.tagDetail)
   margin-top: 0px;
 }
 
-.rightMenu {
+.mainView {
   margin-top: 5%;
   margin-left: 5%;
   display: flex;
@@ -81,6 +81,12 @@ const tagDetail = computed(() => store.state.tagDetail)
   justify-content: center;
   align-items: start;
   width: 100%;
+  height: 100%;
+}
+
+.left {
+  width: 80%;
+  margin-left: 17%;
   height: 100%;
 }
 </style>

@@ -1,21 +1,14 @@
 <script setup>
 
-import { current, state, orgType, iconStyle, res, otherList, materialList, deviceList, reagentList, ShoppingCarNum, showProductList, specIndex, value, productTypeList } from './purchase'
+import { current, state, orgType, res, otherList, materialList, deviceList, reagentList, ShoppingCarNum, showProductList, specIndex, value, productTypeList } from './purchase'
 import { onMounted } from 'vue';
-import { h, ref } from 'vue';
-import { SettingOutlined, ShoppingCartOutlined } from '@ant-design/icons-vue';
-import { reactive, watch } from 'vue';
+import {  watch } from 'vue';
 import { useStore } from 'vuex';
-import {
-    PieChartOutlined,
-    MailOutlined,
-    DesktopOutlined,
-    InboxOutlined,
-    AppstoreOutlined,
-    PlusCircleOutlined
-} from '@ant-design/icons-vue';
-
+import {  ShoppingCartOutlined } from '@ant-design/icons-vue';
+import { router } from '../../config/router';
 const store = useStore();
+
+
 
 
 watch(
@@ -34,6 +27,9 @@ onMounted(() => {
     res.forEach((item, index) => {
 
         item.productNum = 1
+        item.selectSpce = ''
+        item.selectImg = ''
+        item.selectID = 0
 
     })
 
@@ -65,6 +61,7 @@ onMounted(() => {
 })
 
 
+//选择用户
 const toggleCollapsed = () => {
     state.collapsed = !state.collapsed;
     state.openKeys = state.collapsed ? [] : state.preOpenKeys;
@@ -77,9 +74,8 @@ const onSearch = searchValue => {
 };
 
 
-
+//改变产品列表的类型
 const selectedProductType = ({ item, key }) => {
-
 
     if (key === 0) {
         showProductList.value = reagentList.value
@@ -95,17 +91,51 @@ const selectedProductType = ({ item, key }) => {
     }
 }
 
+//把加入购物车
 const addShopping = (item) => {
 
+    console.log(item);
+    
     ShoppingCarNum.value = ShoppingCarNum.value + 1
 
-    
-    store.commit('addshoppingCat',item );
+    //定义加入购物车列表的item
+    const shoppingCarItem = {
+            ID:0,       //商品ID
+            productName: item.product_name,
+            img:item,      //图片地址
+            priceSun:0,  //总价
+            spec:0,      //规格
+            num:item.productNum,       //数量
+            userName:""  //下单用户
+    }
 
-console.log(store.state.shoppingCat);
+
+
+console.log(shoppingCarItem);
+
+store.commit('addshoppingCat',shoppingCarItem );
 
 
 }
+
+
+
+//改变产品的规格
+const changeSpec =({key}) =>{
+
+    console.log(key);
+    specIndex.value=key
+
+
+    
+    
+}
+
+//跳转到购物车
+const goToShoppingCar = () =>{
+    router.push('/shoppingCar')
+}
+
 </script>
 
 <template>
@@ -155,9 +185,8 @@ console.log(store.state.shoppingCat);
                                         <DownOutlined />
                                     </a>
                                     <template #overlay>
-                                        <a-menu @click="onClick">
-                                            <a-menu-item :key="index" v-for="(specItem, index) in item.products">{{
-                                                item.products[specIndex].spec }}</a-menu-item>
+                                        <a-menu @click="changeSpec">
+                                            <a-menu-item :key="index" v-for="(specItem, index) in item.products" >{{specItem.spec }}</a-menu-item>
 
 
                                         </a-menu>
@@ -167,8 +196,7 @@ console.log(store.state.shoppingCat);
                             <a-col :span="8" class="PriceText">￥{{ item.products[specIndex].price }}</a-col>
                         </a-row>
                         <a-col :span="24" style="margin-left: 52px; " align="start" class="productInfoText">详情：<text
-                                style="color:black;">{{
-                                    item.description }}</text> </a-col>
+                                style="color:black;">{{item.description }}</text> </a-col>
 
 
                         <a-col :span="24" style="margin:10px 0 20px 52px; " class="productInfoText" align="start">数量：
@@ -179,7 +207,7 @@ console.log(store.state.shoppingCat);
                 </div>
 
                 <div class="iconBox"  @click="addShopping(showProductList[index])">
-                    <!-- <PlusCircleOutlined class="shhoppingIcon animate__fadeIn"  :style="iconStyle"   @click="addShopping"/> -->
+
                     <i class="iconfont shhoppingIcon">&#xe7ef;</i>
                     <text style="font-size: 10px;top: 5px;">加入购物车</text>
                 </div>
@@ -190,7 +218,9 @@ console.log(store.state.shoppingCat);
 
     </div>
 
-    <a-float-button style="margin-right: 35%;" :badge="{ count: ShoppingCarNum, overflowCount: 999 }"></a-float-button>
+    <a-float-button style="margin-right: 35%;" :badge="{ count: ShoppingCarNum, overflowCount: 999 }" @click=goToShoppingCar()>
+
+    </a-float-button>
 </template>
 
 

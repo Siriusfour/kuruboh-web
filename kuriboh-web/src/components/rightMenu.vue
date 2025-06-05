@@ -5,7 +5,7 @@ import { AccountBookFilled, NotificationFilled, PieChartFilled, CustomerServiceF
 const tagColorList = [
     { tagColor: "red", tagName: "公告", tagDetail: "博康海洋下单站点的公告以及版务人员有序的组织和安排一些社区事件。" },
     { tagColor: "darkblue", tagName: "下单", tagDetail: "购买本公司的产品" },
-    { tagColor: "", tagName: "服务", tagDetail: "" },
+    { tagColor: "red", tagName: "服务", tagDetail: "向我们提交申请以获得售后服务/技术支持" },
     { tagColor: "", tagName: "报表", tagDetail: "" },
     { tagColor: "", tagName: "我的订单", tagDetail: "" },
     { tagColor: "", tagName: "我的申请", tagDetail: "" },
@@ -13,7 +13,6 @@ const tagColorList = [
     { tagColor: "", tagName: "联系我们", tagDetail: "" },
 ]
 const store = useStore();
-
 
 function selectTag(index) {
     const el = document.getElementById('tagInfo');
@@ -32,48 +31,50 @@ function selectTag(index) {
 
 
 
-        <div class="Menu">
-            <div class="menuItem" @click="selectTag(0)">
-                <NotificationFilled style="margin-right: 13px; margin-left: 20px; color: darkblue;" />
-                <text class="titleText"> 公告</text>
-            </div>
-
-            <div class="menuItem" @click="selectTag(1)">
+    <div class="Menu">
+        <div class="menuItem" @click="selectTag(0)">
+            <NotificationFilled style="margin-right: 13px; margin-left: 20px; color: darkblue;" />
+            <text class="titleText"> 公告</text>
+        </div>
+        <RouterLink to="/" class="menuItem">
+            <div  @click="selectTag(1)">
                 <AccountBookFilled style="margin-right: 13px; margin-left: 20px; color: red;" />
                 <text class="titleText"> 下单</text>
             </div>
+        </RouterLink>
 
-            <div class="menuItem" @click="selectTag(2)">
+        <RouterLink to="/apply" class="menuItem">
+            <div  @click="selectTag(2)">
                 <ToolFilled style="margin-right: 13px; margin-left: 20px; color: chocolate;" />
                 <text class="titleText"> 服务</text>
             </div>
+        </RouterLink>
 
-            <div class="menuItem" @click="selectTag(3)">
-
-                <PieChartFilled style="margin-right: 13px; margin-left: 20px; color: darkgreen;" />
-                <text class="titleText"> 报表</text>
-            </div>
-
-            <div class="menuItem" @click="selectTag(4)">
-                <ContainerFilled style="margin-right: 13px; margin-left: 20px; color:brown; " />
-                <text class="titleText"> 我的订单</text>
-            </div>
-
-            <div class="menuItem" @click="selectTag(5)">
-                <HddFilled style="margin-right: 13px; margin-left: 20px; color: blueviolet;" />
-                <text class="titleText"> 我的申请</text>
-            </div>
-
-            <div class="menuItem" @click="selectTag(6)">
-                <QuestionCircleFilled style="margin-right: 13px; margin-left: 20px; color: blue;" />
-                <text class="titleText"> 常见问题</text>
-            </div>
-
-            <div class="menuItem" @click="selectTag(7)">
-                <CustomerServiceFilled style="margin-right: 13px; margin-left: 20px; " />
-                <text class="titleText"> 联系我们</text>
-            </div>
+        <div class="menuItem" @click="selectTag(3)">
+            <PieChartFilled style="margin-right: 13px; margin-left: 20px; color: darkgreen;" />
+            <text class="titleText"> 报表</text>
         </div>
+
+        <div class="menuItem" @click="selectTag(4)">
+            <ContainerFilled style="margin-right: 13px; margin-left: 20px; color:brown; " />
+            <text class="titleText"> 我的订单</text>
+        </div>
+
+        <div class="menuItem" @click="selectTag(5)">
+            <HddFilled style="margin-right: 13px; margin-left: 20px; color: blueviolet;" />
+            <text class="titleText"> 我的申请</text>
+        </div>
+
+        <div class="menuItem" @click="selectTag(6)">
+            <QuestionCircleFilled style="margin-right: 13px; margin-left: 20px; color: blue;" />
+            <text class="titleText"> 常见问题</text>
+        </div>
+
+        <div class="menuItem" @click="selectTag(7)">
+            <CustomerServiceFilled style="margin-right: 13px; margin-left: 20px; " />
+            <text class="titleText"> 联系我们</text>
+        </div>
+    </div>
 
 </template>
 

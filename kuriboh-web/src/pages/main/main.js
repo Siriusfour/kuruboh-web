@@ -1,13 +1,15 @@
 import { createApp } from 'vue'
-import './style.css'
-import './global.css'
-import App from './App.vue'
-import 'ant-design-vue/dist/reset.css';
+
+import App from '../../App.vue'
 import Antd from 'ant-design-vue';
 import { createStore } from 'vuex'
-import './assets/iconfont/iconfont.css'
+import {router} from '../../config/router'
+import 'ant-design-vue/dist/reset.css';
+import '../../style.css'
+import '../../global.css'
+import '../../assets/iconfont/iconfont.css'
 import 'animate.css';
-import { state } from './components/purchase/purchase';
+
 
 
 const store = createStore({
@@ -17,7 +19,7 @@ const store = createStore({
       tagName:"下单",
       tagColor:"red",
       tagDetail:"此处用于下单",
-      shoppingCat:[]
+      shoppingCatList:[]
     }
   },
   mutations: {
@@ -28,12 +30,12 @@ const store = createStore({
     },
 
     addshoppingCat(state,item){
-      console.log(state.shoppingCat);
+      console.log(state.shoppingCatList);
       
-      state.shoppingCat.unshift(item)
+      state.shoppingCatList.unshift(item)
     }
   }
 })
 
-createApp(App).use(Antd).use(store).mount('#app')
+createApp(App).use(Antd).use(store).use(router).mount('#app')
 
