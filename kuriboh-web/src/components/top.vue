@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { SearchOutlined, CaretDownOutlined, BellOutlined, SoundFilled , SettingOutlined  } from '@ant-design/icons-vue'
+import { SearchOutlined, CaretDownOutlined, BellOutlined, SoundFilled, SettingOutlined } from '@ant-design/icons-vue'
 const onClick = ({ key }) => {
   console.log(`Click on item ${key}`);
 };
@@ -10,8 +10,7 @@ const nickName = ref("susi")
 </script>
 
 <template>
-  <div
-    style="width: 100%; height: 80px; background-color: rgb(62, 102, 177); position: fixed; top: 0; left: 0; display: flex; flex-direction: row; justify-content: start; align-items: center;">
+  <div class="topRoot">
 
     <img src="https://bokanghy.com/oss/2024-07-26/778648dd59ba6eea4150b40fdd144edb.png" height="auto" width="200px"
       style="margin-left: 250px;">
@@ -67,7 +66,7 @@ const nickName = ref("susi")
                 <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />
               </template>
               <template #actions>
-                <SettingOutlined key="setting"  />
+                <SettingOutlined key="setting" />
                 <BellOutlined key="edit" />
                 <BellOutlined key="ellipsis" />
               </template>
@@ -148,5 +147,18 @@ const nickName = ref("susi")
   border-radius: 10px;
   width: 100px;
 
+}
+
+.topRoot {
+  width: 100%;
+  height: 80px;
+  background-color: rgb(62, 102, 177);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
 }
 </style>

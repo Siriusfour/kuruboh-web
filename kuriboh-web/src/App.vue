@@ -36,9 +36,11 @@ const tagDetail = computed(() => store.state.tagDetail)
     <!-- 右边导航栏目 -->
     <rightMenu style="margin-right: 26%;" />
 
+
   </div>
 
 
+  <div  class="button"></div>
 </template>
 
 <style scoped>
@@ -88,5 +90,16 @@ const tagDetail = computed(() => store.state.tagDetail)
   width: 80%;
   margin-left: 17%;
   height: 100%;
+}
+
+.button {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 30%;
+  height: 8vh;
+  margin: 0 auto; /* 水平居中 */
+  background-color: rgb(151, 151, 151);
 }
 </style>

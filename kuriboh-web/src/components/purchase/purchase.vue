@@ -1,6 +1,6 @@
 <script setup>
 
-import { current, state, orgType, res, otherList, materialList, deviceList, reagentList, ShoppingCarNum, showProductList, specIndex, value, productTypeList } from './purchase'
+import { current, state, orgType, res, otherList, materialList, deviceList, reagentList, ShoppingCarNum, showProductList, specIndex, value, productTypeList,selectOrgID } from './purchase'
 import { onMounted } from 'vue';
 import {  watch } from 'vue';
 import { useStore } from 'vuex';
@@ -24,12 +24,13 @@ onMounted(() => {
 
 
     // 处理res数组，加入必要的属性
-    res.forEach((item, index) => {
+    res.forEach((item) => {
 
         item.productNum = 1
-        item.selectSpce = ''
-        item.selectImg = ''
-        item.selectID = 0
+        item.selectSpceIndex = 0
+        item.selectImg = item.products[0].image
+        item.selectID = item.products[0].id
+        item.radio = true
 
     })
 
@@ -61,7 +62,7 @@ onMounted(() => {
 })
 
 
-//选择用户
+//选择下单用户
 const toggleCollapsed = () => {
     state.collapsed = !state.collapsed;
     state.openKeys = state.collapsed ? [] : state.preOpenKeys;
@@ -77,6 +78,9 @@ const onSearch = searchValue => {
 //改变产品列表的类型
 const selectedProductType = ({ item, key }) => {
 
+    
+    specIndex.value=0
+
     if (key === 0) {
         showProductList.value = reagentList.value
     }
@@ -89,29 +93,55 @@ const selectedProductType = ({ item, key }) => {
     if (key === 3) {
         showProductList.value = otherList.value
     }
+
 }
 
-//把加入购物车
+
+
+//选择下单公司=========================
+const selectUserOrg =({ item, key, keyPath })=>{
+
+    console.log(key);
+
+    selectOrgID.value=key
+    
+    
+    
+}
+
+
+//改变产品的规格========================
+const changeSpec =({sIndex,productListIndex}) =>{
+
+    showProductList.value[productListIndex].selectSpceIndex=sIndex
+
+    showProductList.value[productListIndex].selectImg = showProductList.value[productListIndex].products[sIndex].image
+
+    showProductList.value[productListIndex].selectID = showProductList.value[productListIndex].products[sIndex].id
+
+    
+}
+
+
+
+//把加入购物车======================
 const addShopping = (item) => {
 
-    console.log(item);
-    
-    ShoppingCarNum.value = ShoppingCarNum.value + 1
-
-    //定义加入购物车列表的item
-    const shoppingCarItem = {
-            ID:0,       //商品ID
-            productName: item.product_name,
-            img:item,      //图片地址
-            priceSun:0,  //总价
-            spec:0,      //规格
-            num:item.productNum,       //数量
-            userName:""  //下单用户
-    }
+ShoppingCarNum.value = ShoppingCarNum.value + 1
 
 
+//定义加入购物车列表的item
+const shoppingCarItem = {
+        ID: item.selectID,       //商品ID
+        productName: item.product_name,
+        img:item.selectImg,      //图片地址
+        priceSun:item.productNum*item.products[item.selectSpceIndex].price,  //总价
+        spec:item.products[item.selectSpceIndex].spec,      //规格
+        num:item.productNum,       //数量
+        userName:selectOrgID, //下单用户
+        radio : item.radio
+}
 
-console.log(shoppingCarItem);
 
 store.commit('addshoppingCat',shoppingCarItem );
 
@@ -119,22 +149,12 @@ store.commit('addshoppingCat',shoppingCarItem );
 }
 
 
-
-//改变产品的规格
-const changeSpec =({key}) =>{
-
-    console.log(key);
-    specIndex.value=key
-
-
-    
-    
-}
-
-//跳转到购物车
+//跳转到购物车========================
 const goToShoppingCar = () =>{
     router.push('/shoppingCar')
 }
+
+
 
 </script>
 
@@ -156,7 +176,7 @@ const goToShoppingCar = () =>{
     <div class="productList">
         <div class="rightMenu">
             <a-menu v-model:openKeys="state.openKeys" v-model:selectedKeys="state.selectedKeys" mode="inline"
-                theme="light" :inline-collapsed="state.collapsed" :items="orgType"></a-menu>
+                theme="light" :inline-collapsed="state.collapsed" :items="orgType" @click="selectUserOrg" ></a-menu>
         </div>
 
         <div class="scroll">
@@ -164,7 +184,7 @@ const goToShoppingCar = () =>{
                 class="flex-row-start-center">
 
 
-                <div class="productInfo">
+                <div class="productInfo" @click="123">
                     <a-badge-ribbon text="临床" color="red">
                         <a-row>
                             <a-col :span="6">
@@ -173,6 +193,7 @@ const goToShoppingCar = () =>{
                             </a-col>
                             <a-col :span="11" class="titleText" style="margin-top: 3%;">{{ item.product_name }} </a-col>
 
+                            
                         </a-row>
                         <a-row style="margin-top: 10px;">
                             <a-col :span="8" class="productInfoText"> 货号： <text style="color:black;">{{
@@ -180,20 +201,18 @@ const goToShoppingCar = () =>{
                             <a-col :span="8" class="productInfoText">规格：
                                 <a-dropdown>
                                     <a @click.prevent class="titleText">
-                                        <text style="color:black;">{{ item.products[specIndex].spec }} </text>
+                                        <text style="color:black;">{{ item.products[item.selectSpceIndex].spec }} </text>
                                         <CaretDownOutlined style="color: white; margin-right: 20px;" />
                                         <DownOutlined />
                                     </a>
                                     <template #overlay>
-                                        <a-menu @click="changeSpec">
-                                            <a-menu-item :key="index" v-for="(specItem, index) in item.products" >{{specItem.spec }}</a-menu-item>
-
-
+                                        <a-menu>
+                                            <a-menu-item  :key="{sIndex,index}" v-for="(specItem, sIndex) in item.products" @click="() => changeSpec({ sIndex: sIndex, productListIndex: index })">{{specItem.spec}}</a-menu-item>
                                         </a-menu>
                                     </template>
                                 </a-dropdown>
                             </a-col>
-                            <a-col :span="8" class="PriceText">￥{{ item.products[specIndex].price }}</a-col>
+                            <a-col :span="8" class="PriceText">￥{{ item.products[item.selectSpceIndex].price }}</a-col>
                         </a-row>
                         <a-col :span="24" style="margin-left: 52px; " align="start" class="productInfoText">详情：<text
                                 style="color:black;">{{item.description }}</text> </a-col>

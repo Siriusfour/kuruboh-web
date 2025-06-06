@@ -29,10 +29,10 @@ const store = createStore({
       state.tagDetail = tagInfo.tagDetail
     },
 
-    addshoppingCat(state,item){
-      console.log(state.shoppingCatList);
-      
+    addshoppingCat(state,item){      
       state.shoppingCatList.unshift(item)
+
+      
     }
   }
 })
